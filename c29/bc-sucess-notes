@@ -48,6 +48,7 @@ ansible: 3.86.243.51 key29.pem" ec2-user
  sudo chown -R ansible:ansible /etc/ansible
  create ansible .cfig file under /etc/ansible
  vi /etc/ansible/ansible.cfg
+ https://github.com/ansible/ansible/blob/stable-2.9/examples/ansible.cfg
  
   pip3 install boto3 botocore --user
   pip3 install --upgrade requests --user
