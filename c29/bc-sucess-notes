@@ -104,21 +104,30 @@ Position  = Azure DevOps/ES Engineer
        GCP - Google Cloud Resource
   dbservers 
   file
+  In my env, I used ansible or terraform for file migration. 
+  We can create an archive for the file, then we unzip the file with the help of ansible, we deploy to the target host.
+  I would create ansible-playbook to migrate the file.
 
   ansible dbservers -m copy -a "src=tesla.zip dest=/opt" -b 
+  
 - hosts: localhost  
   tasks:
+  - name: install package
+    package:
+      name: ['zip', 'tree', 'nano', 'unzip', 'wget']
+      state: latest
   - name: copy file 
-    shell: cp -r *  tesla 
+    shell: cp *  tesla/ 
+    ignore_errors: true
   - name: create archive 
     shell: zip tesla tesla.zip 
-- hosts: dbservers  
+    ignore_errors: true
+- hosts: web  
   tasks:
   - name: copy files 
     copy: 
       src: tesla.zip 
       dest: /opt/ 
-2. 
 
 b) they went straight to the role - no time for morning devotion 
 c) What are your experiences with elasticsearch?
@@ -127,42 +136,69 @@ https://www.elastic.co/elasticsearch
 Elasticsearch is the world’s leading free and open search and analytics solution. With an emphasis on speed, scale, and relevance it's transforming how the world uses data.
 
 Elasticsearch is a distributed, RESTful search and analytics engine capable of addressing a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data for lightning fast search, fine‑tuned relevancy, and powerful analytics that scale with ease.
-
+-In our env, we use elasticsearch filebeat and kibana for data analytic and log management. Elasticsearch come with DB, and I deploy it in my env as statefullSet.
+Elasticsearch would help to analyse how the app is behaving.Elasticsearch would scrap the logs and does log management, analytic, indexing and with the help
+of kibana we can visualize what is happening.
   amazon.com 
   google.com = i9 laptop  
 
 d) How would you deploy 5m files to 500 servers using IAAC?
 e) How would these files get to ElasticSearch
+
 f) How does your company access elasticsearch on the browser?
+In our env, we're deploying elasticsearch as k8s object, and we're using kibana to visualize what is happening inside.
 
 g) How do you secure your k8s cluster? 
-     namespaces 
+     namespaces: I can restrict access to certain namespaces, example:Developer do not have access to production namespace.
      RBAC [  ]:
         users / groups / ServiceAccounts
         Role/RoleBinding  
         ClusterRole / ClusterRoleBinding  
      IAM 
-     resourceQuota
-     kuber 
+     resourceQuota to determine how much resources can be consume by a particular namespace.
 
 h) What files do you see in your helm chart?
-      values.yml[deploy, pvc, ClusterIP, SA, R/RB, CR,CRB, HPA, ingress ] / 
-      template/deploy.yml, hpa.yml, sa.yml, rbac.yml, ingress.yml, service.yml 
+      -(file)= values.yml[deploy, pvc, ClusterIP, SA, R/RB, CR,CRB, HPA, ingress ] / 
+      -(directory)= template/deploy.yml, hpa.yml, sa.yml, rbac.yml, ingress.yml, service.yml 
+      
 I) what commands exist in your dockerfile?
-   		FROM 
-   		MAINTAINER
-   		ADD 
-   		COPY 
-   		RUN
-   		EXPOSE 
-   		USER tomcat    
-   		VOLUME 
-   		WORDIR  /usr/local/tomcat 
-   		ENV 
-   		LABELS
-   		CMD 
-   		ARG
-   		ENTRYPOINT 
+   	-FROM used to choose my based image which should have my app dependencies
+   	-MAINTAINER who have have access to the docker file should know it maintain by us
+   	-ADD use to copy file from docker host server to container while creating the image; use also to copy file from external URL.
+   	-COPY copy file from docker host server to the container while creating the image
+   	-RUN use to execute command while creating the docker image; it is important that we minimize our run instructions so that we can create light weigh images
+   	-EXPOSE use to state the port that our container would listening on 
+   	-USER tomcat by default docker run on root; if we want to change the user that would manage our containerization we should state with USER.   
+   	-VOLUME if we're creating docker file to deploy statefull app we need to create a volume to determine where our data would be mountain in the container
+   	-WORDIR  /usr/local/tomcat is where the entire task would be running
+   	-ENV pass env variables
+   	-LABELS
+   	-CMD executed while creating and starting container
+   	-ARG
+   	-ENTRYPOINT executed while creating and starting container
+      
+   j) How do you secure your k8s cluster and network?
+   When we deploy app, we restrict who can have access using namespace.
+   
+   i) What Azure/aws tool do you secure your network with?
+   To secure our network in aws, we have vpc, subnet concept[private and public], network access control list[nacl], security group waf, iam
+   
+   k) walk me through your terraform steps in creating a resource.
+   In our env provisionning any resource with terraform, we have modules in our env. For example if I have to deploy vpc in azure or aws,
+   we have a module which is going to deploy ec2 instance; I have to check the module for any information and in our env it is done in our variable.tf file.
+   I have module for most of my deployment and make sure that terraform has the permission to manage and create resources so the right IAM permission is assign, then
+   I go through my terraform work flow, I would run terraform init to initialize the backend and to download all the provider plugins, terraform format to organize
+   terraform and tf file, terraform validate to make sure the syntax are ok, terraform plan to see the resources that would be created, terraform apply to provisione
+   the resources.
+   
+   L) Have you used azure code pipeline?
+   I have not used azure code pipeline, but in aws I use similar resource aws code pipeline 
+   
+   M) How do you write a groovy custom line in your declarative pipeline in jenkins?
+   In groovy, I generally use a jinja bracket.{}
+   
+   N) Have you used multi stage docker file before?
+   
 
  docker exec myapp pwd 
 
