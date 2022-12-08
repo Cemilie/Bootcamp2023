@@ -12,7 +12,7 @@ Interview 2023:
        Applications are the output from Softwares development 
      including: 
        1. Provisioning and configuring Infrastructures and servers in AWS using  
-          terraform and ansible and Jenkins
+          terraform, ansible and Jenkins
           pipeline
 
        2. Building and maintaining automation pipelines with jenkins for application;
@@ -34,7 +34,7 @@ Interview 2023:
        for: patching, userMGT, fileMgt, packageMGT. I am  the escalation point if  
         issues arise while running the ansible-playbooks   
 
-  8. 
+  8. In my environment, I manage Java based project.
 
 web: = 54.221.153.174 key29.pem ubuntu
 ansible: 3.86.243.51 key29.pem" ec2-user
