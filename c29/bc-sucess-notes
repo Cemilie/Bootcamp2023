@@ -41,7 +41,7 @@ ansible: 3.86.243.51 key29.pem" ec2-user
   sudo useradd ansible  
   sudo yum -y install python3-pip
   sudo apt -y install python3-pip
-  pip3 install 
+  pip3 install ansible --user
   pip3 install boto3 botocore --user
   pip3 install --upgrade requests --user
 appserver: 
