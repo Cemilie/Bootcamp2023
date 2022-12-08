@@ -86,3 +86,5 @@ OPERATORS:
 10 micro service enterprise applications
 11 micro-services per application  
    110 --- 10 pods  = 1100 pods/containers
+   
+   jenkins initial password: 2106c7ee1cec4fd9a438781ffbadbfd0
