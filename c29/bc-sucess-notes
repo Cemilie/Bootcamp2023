@@ -49,6 +49,8 @@ ansible: 3.86.243.51 key29.pem" ec2-user
  create ansible .cfig file under /etc/ansible
  vi /etc/ansible/ansible.cfg
  https://github.com/ansible/ansible/blob/stable-2.9/examples/ansible.cfg
+ #To change ip hosts 
+ vi /etc/ansible/hosts
  
   pip3 install boto3 botocore --user
   pip3 install --upgrade requests --user
