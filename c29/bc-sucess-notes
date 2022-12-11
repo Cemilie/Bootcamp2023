@@ -210,10 +210,37 @@ Dec 7, 2022
         Tesla 
 Taboh
 1. Tell us about yourself 
+
 2. Which technologies have you used in your environment
-3. Explain how you apply terraform in your env't
+In my env, I used AWS as our Cloud Provider and we're heavy on AWS. I use terraform to provisione resources in AWS from vpc, S3 buckect, EKS cluster, EC2 instances
+among othres. I use ansible to configure our env; we're heavy on infrastructure as Code. We use Jenkins for CI/CD in our env. We use Git for versioning , and Github
+as our SCM. We use Maven to build our java based project. We use Sonarqube for code review and code quality analysis. We use Nexus as our artifactory. We use
+Docker for containerization and k8s for container orchestration. We use prometheus and grafana for application performance monitoring including New Relic. We use 
+Elasticsearch Filebeat and kibana for log management and data analysis.
+
+3. Explain how you apply terraform in your env'
+In my env, we're heavy on Iac, we use terraform as our major Iac tool to provisione different resources in AWS Cloud which include create VPC and all its components
+which include subnet, route table, internet gateway. I also use terraform to deploy different env as dev env, stage env, pod env include all the resources that 
+are needed like EC2 instance, Elastic load balancer. When applying terraform we use of modules because we do not only provisione resources for one env, we provisione
+resources for multiples env. We have modules to create vpc, ec2 instances, for elastic ip, virtualy for everything we need in our env. We ensure that we backup 
+our state file in s3 bucket. We log our state file using dynamoDB because we do not want to have a situation where two Engineers are use the state file at a same 
+type. Our env is highly secure with terraform. My experience with terraform also include importing resources with terraform that was not created under terraform
+management because in our env we want to make sure that everything we have is manage via IaC. For that effect, I run terraform import to import resources that was 
+either manually created from the consol or via CLI so that terraform can manage those resources.
+
 4. What problems have you encountered applying terraform 
-   in your env't. 
+  I had a problem where I was ask to provisioning infrastructure with terraform but i had permission issue, and it was not permiting me to provisione certain resources
+  My accesskey/secretAccess key was [EC2ReadAccess] that means I could not provisione infrastructure. I imediately spoke to my team lead who granted me the access
+  create that resource. I had syntax issue when I run terraform init or terraform validate where the .tf cannot be validate because I had to make some changes 
+  in the tf file. I had syntax problem because variables were pass differently in the terraform script I wanted to use. I can modify the tf file match the change
+  in the latest version or I can fur terraform with the version which is compactible with my tf file. I use terraform to provisione resources in the dev en, stage 
+  and production and if we harcorde values, it would be difficult to use it in different env, and that would challenge the purpose of automation that our env
+  is heavy on. To avoid hard coding, we use variables, so we create variable file so that we can use one module to provisione resoureces in different env.
+  I had problem with region secification, when creating ec2 instance the ami-id [amazon machine image] was different] from the resources and wanted to provisione.
+  To fix the problem, I had to make sure that ami is passed as variables.
+  
+  
+  
    permissions/syntax/plugins/wrong version/ 
    hardcoded values /regions-specification/attaching keys
    variables: maps/lists/interger/strings/
