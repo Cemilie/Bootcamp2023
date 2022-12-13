@@ -306,11 +306,23 @@ pipeline{
    stages{
       stage('clonecode'){
          steps{
-            git""
+            git"https://github.com/Cemilie/jenkins-ansible-dynamic-inv"
          }
       }
-      stage('setup')
+      stage('createInfra'){
+          steps{
+             sh "terraform init"
+             sh "terraform apply fmt"
+             sh "terraform validate"
+             sh "terraform show"
+             sh "terraform apply --auto-approve"
+           }
+        }
+     }
+ }
 
+create new pipeline for terraform-project
+-Go to AWS terraform, then action, security, modify IAM role, attach role with administratorAccess and go back to run build.
 6. What are you your greatest achievements as a DevOps Engineer
 
  maven / sonarqube /nexus
