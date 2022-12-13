@@ -263,7 +263,7 @@ terraform_0.1.9
 5. Explain a project you did which you are proud of??
 My name is Cecile, and thank you again for this question. As a DevOps Engineer, I personaly take pride for what I do and almost all the project I done I am really
 excited about them, but if I was about to talk about one of this project I remember that I was assign a ticket. We had a meeting and our main discussion 
-was how to automate. We had to provisione an amazon EKS cluster that was my task. We have different options to provisione the cluster,one of the ways to 
+was how to automate automation. We had to provisione an amazon EKS cluster that was my task. We have different options to provisione the cluster,one of the ways to 
 provisione from the console or commande line, but my main vue was like how can I use terraform to provisione this cluster. I did that project on how to use
 terraform to provisione the cluster. I came back and I told my team manager that I found a different method we could use to provisioning EKS. We can use 
 IaC which is terraform and it would provisioning EKS and all its component because EKS come with vpc, private and public subnet, loadBalancer, auto scaling
@@ -275,6 +275,41 @@ wherewe can visualize everything and we create our terraform pipeline in jenkins
 I can say I am very excited about them because it took automation in our env in a next level and eveybody was so excited and I even receive an award, and I 
 see that as one of my greatest achievement. I was the DevOps Engineer of the quater. 
 
+b. What are you proud of in your env?
+When I started working, we have some of our jenkins jobs that was intended to deploy app, and one thing that I noticed was that, we have a job that after jenkins
+does a build, docker need to containerize and everything was running in jenkins server so docker was install on jenkins, everything was install on jenkins.
+I advice my team that it was not a best approach to apply jenkins because we're applying jenkins without making provision for disaster recovery. Our infrastructure
+was not for tolerant. I had to present to them how we can apply and carry the same job using Jenkins master slave architecture.
+Example: Jenkins - terraform integration:
+-Access Jenkins server on the browser
+-Manage jenkins
+-manage Nodes and cloud
+-add new Node (terraform) permanent agent create
+-description (terraform)
+-Number of executors (4)
+-remote root directory (mandatory :/home/ubuntu/jk)
+-Labels (terraformnode)
+-Launch method(via SSH): HostName(IP address); credential(add credential:Provider Jenkins=SSH Username with private key,ID=terraform-cred, description=terraform-cred,
+Username=ubuntu, Private key Enter directly add key copy and paste, key verification strategy=Manually trusted key verification strategy, save).
+Install Java for the agent to be online.
+
+add Ansible agent
+-Copy configuration from terraform and modify (manage Ansible as ansible user)
+-Labels (ansiblenode)
+-Hostname=ansible IP adress; Username=ansible; Launch method; credential (Username and password; username=ansible; password=admin123; ID=ansible-cred;
+description=ansible-cred) save. Go to ansible server and switch to ansible assign password to ansible= sudo passwd ansible=admin123; install java;
+sudo vi /etc/ssh/sshd_config modify PasswodrAuthentication from no to yes in ansible. then sudo systemctl restart sshd.
+pipeline{
+   agent{
+      label 'terraformnode'
+   }
+   stages{
+      stage('clonecode'){
+         steps{
+            git""
+         }
+      }
+      stage('setup')
 
 6. What are you your greatest achievements as a DevOps Engineer
 
