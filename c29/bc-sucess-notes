@@ -236,10 +236,12 @@ either manually created from the consol or via CLI so that terraform can manage 
   in the latest version or I can fur terraform with the version which is compactible with my tf file. I use terraform to provisione resources in the dev en, stage 
   and production and if we harcorde values, it would be difficult to use it in different env, and that would challenge the purpose of automation that our env
   is heavy on. To avoid hard coding, we use variables, so we create variable file so that we can use one module to provisione resoureces in different env.
-  I had problem with region secification, when creating ec2 instance the ami-id [amazon machine image] was different] from the resources and wanted to provisione.
-  To fix the problem, I had to make sure that ami is passed as variables.
-  
-  
+  I had problem with region secification, when creating ec2 instance the iam-id [amazon machine image] was different] from the resources and wanted to provisione.
+  To fix the problem, I had to make sure that iam is passed as variables. When we introduce terraform in our env, we have some of our Jr Engineers passing their AWS
+  credential(accesskey) as part of their terraform file that was not a good security measure, and we have to fix the problem imediately. Two years ago, we had a situation
+  where we were try to run terraform apply and the infrastructure was not alloying us to provisione, we had breakage, and what we realize was that multiple 
+  Engineers were running terraform apply at the same time, they were try to provisione resources at the same time and that was a serious problem. 
+  We then introduce S3 backend and dynamoDB table to log our terraform file.
   
    permissions/syntax/plugins/wrong version/ 
    hardcoded values /regions-specification/attaching keys
@@ -259,6 +261,20 @@ terraform_1.2.3
 terraform_0.1.9
 
 5. Explain a project you did which you are proud of??
+My name is Cecile, and thank you again for this question. As a DevOps Engineer, I personaly take pride for what I do and almost all the project I done I am really
+excited about them, but if I was about to talk about one of this project I remember that I was assign a ticket. We had a meeting and our main discussion 
+was how to automate. We had to provisione an amazon EKS cluster that was my task. We have different options to provisione the cluster,one of the ways to 
+provisione from the console or commande line, but my main vue was like how can I use terraform to provisione this cluster. I did that project on how to use
+terraform to provisione the cluster. I came back and I told my team manager that I found a different method we could use to provisioning EKS. We can use 
+IaC which is terraform and it would provisioning EKS and all its component because EKS come with vpc, private and public subnet, loadBalancer, auto scaling
+group, IAM roles etc. I wrote a terraform file and we try to prove the concept in it to see if it is going to work, we ran it in work and it was well
+everybody was so exited and since then EKS is what we use to provisione our cluster in any env. We want to provisione EKS in dev env we just use the same EKS
+terraform code. That's the project I did I'm very proud of, and I also remember introducing to my team this integration Jenkins-terraform pipeline
+because in the past it was like terraform is already automation so no point for us to be provisione terraform with jenkins. It is good to have one dasboard
+wherewe can visualize everything and we create our terraform pipeline in jenkins and from there, we are able to provisione resources. This are some project
+I can say I am very excited about them because it took automation in our env in a next level and eveybody was so excited and I even receive an award, and I 
+see that as one of my greatest achievement. I was the DevOps Engineer of the quater. 
+
 
 6. What are you your greatest achievements as a DevOps Engineer
 
@@ -272,10 +288,6 @@ Jenkins - terraform /
 Jenkins master slave architecture:
 
 
-
-have the best env't 
-my little experience 
-Details  
 
 ======================================================================
 Dec 8, 2022                                                       ====:
